@@ -1,0 +1,20 @@
+{
+  "name": "team-alert",
+  "version": "1.0.0",
+  "description": "Internal team alert popups",
+  "author": "Your Company",
+  "main": "main.js",
+  "scripts": { "start": "electron .", "build": "electron-builder --mac" },
+  "dependencies": { "ws": "^8.18.0" },
+  "devDependencies": { "electron": "^33.0.0", "electron-builder": "^25.0.0" },
+  "build": {
+    "appId": "com.yourcompany.teamalert",
+    "productName": "Team Alert",
+    "files": ["main.js", "preload.js", "index.html", "alert.html", "config.json", "assets/**/*"],
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": [{ "target": "dmg", "arch": ["arm64", "x64"] }],
+      "extendInfo": { "LSUIElement": true }
+    }
+  }
+}

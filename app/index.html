@@ -1,0 +1,17 @@
+<!doctype html><meta charset="utf-8">
+<style>
+  body{font-family:-apple-system,sans-serif;margin:0;padding:12px;background:#1e1e22;color:#fff;-webkit-user-select:none}
+  h3{margin:0 0 10px;font-size:13px;opacity:.7;font-weight:500}
+  button{display:block;width:100%;margin:6px 0;padding:10px;border:0;border-radius:8px;background:#3b82f6;color:#fff;font-size:14px;cursor:pointer}
+  button:active{background:#2563eb} .empty{opacity:.5;font-size:13px}
+</style>
+<h3>Who do you need?</h3><div id="list"></div>
+<script>
+  function render(users){
+    const el=document.getElementById('list'); el.innerHTML='';
+    if(!users.length){el.innerHTML='<div class="empty">Nobody else online</div>';return;}
+    users.forEach(u=>{const b=document.createElement('button');b.textContent='Alert '+u;
+      b.onclick=()=>{api.alert(u);b.textContent='Alerted ✓';};el.appendChild(b);});
+  }
+  api.getUsers().then(render); api.onUsers(render);
+</script>

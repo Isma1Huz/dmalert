@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: team-alert-server
+    runtime: node
+    rootDir: server
+    plan: free            # change to "starter" to avoid sleeping (see README)
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: AUTH_TOKEN
+        generateValue: true   # Render creates a random secret; copy it from the dashboard
+      - key: NODE_VERSION
+        value: 20

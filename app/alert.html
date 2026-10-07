@@ -1,0 +1,27 @@
+<!doctype html><meta charset="utf-8">
+<style>
+  body{font-family:-apple-system,sans-serif;margin:0;padding:16px;background:#1e1e22;color:#fff;border-radius:12px;box-sizing:border-box;height:100vh;border:2px solid #f59e0b;-webkit-user-select:none}
+  h2{margin:0 0 4px;font-size:20px} p{margin:0 0 14px;opacity:.7;font-size:13px}
+  .row{display:flex;gap:8px} button{flex:1;padding:9px;border:0;border-radius:8px;font-size:13px;cursor:pointer;background:#3b82f6;color:#fff}
+  button.alt{background:#44444c}
+</style>
+<h2 id="title"></h2><p id="sub"></p>
+<div class="row" id="btns"></div>
+<script>
+  const q=new URLSearchParams(location.search), from=q.get('from'), type=q.get('type');
+  if(type==='alert'){
+    title.textContent='🔔 '+from+' is calling you'; sub.textContent='Take off your headphones';
+    [['On my way','👍 On my way'],['Give me 5 min','⏱ 5 min'],['Busy now','🚫 Busy']].forEach(([t,l],i)=>{
+      const b=document.createElement('button');b.textContent=l;if(i)b.className='alt';
+      b.onclick=()=>api.reply(from,t);btns.appendChild(b);});
+  } else {
+    title.textContent=from+' replied'; sub.textContent=q.get('text');
+    const b=document.createElement('button');b.textContent='OK';b.onclick=()=>api.close();btns.appendChild(b);
+  }
+  // alert sound (custom mp3, falls back to a beep if it can't play)
+  if(type==='alert'){
+    const snd=new Audio('assets/alert.mp3'); snd.volume=1;
+    snd.play().catch(()=>{try{const c=new AudioContext();[0,.25,.5].forEach(t=>{const o=c.createOscillator(),g=c.createGain();
+      o.frequency.value=880;o.connect(g);g.connect(c.destination);g.gain.value=.2;o.start(c.currentTime+t);o.stop(c.currentTime+t+.15);});}catch(e){}});
+  }
+</script>

@@ -1,0 +1,5 @@
+{
+  "name": "Ismael",
+  "server": "wss://team-alert-server.onrender.com",
+  "token": "PASTE_AUTH_TOKEN_FROM_RENDER"
+}
